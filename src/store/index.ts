@@ -1,10 +1,29 @@
-import { createStore } from "vuex";
+import { createStore } from 'vuex';
 import axiosClient from "../axios";
 import { useToast } from "vue-toastification";
 
 const toast = useToast();
 
-const store = createStore({
+interface State {
+  user: {
+    data: object,
+    token: string | null,
+  },
+  investments: {
+    loading: boolean,
+    data: object[],
+  },
+  investment: {
+    loading: boolean,
+    data: {
+      name: string,
+      group_name: string,
+    } | object,
+    file_categories_all: object[],
+  },
+}
+
+const store = createStore<State>({
   state: {
     user: {
       data: {},
@@ -16,10 +35,25 @@ const store = createStore({
     },
     investment: {
       loading: false,
-      data: {}
+      data: {},
+      file_categories_all: [],
     },
   },
-  getters: {},
+  getters: {
+    getHalfFileCategories (state) {
+      // return state.todos.filter(todo => todo.done)
+      const half = Math.ceil(state.investment.file_categories_all.length / 2);
+
+      const firstHalf = state.investment.file_categories_all.slice(0, half);
+      const secondHalf = state.investment.file_categories_all.slice(half);
+
+      let file_categories :object[] = [];
+      file_categories.push(firstHalf);
+      file_categories.push(secondHalf);
+
+      return file_categories;
+    }
+  },
   actions: {
     register({commit}, user) {
       return axiosClient.post('/register', user)
@@ -81,6 +115,7 @@ const store = createStore({
         .get(`/investments/${id}`)
         .then((res) => {
           commit("setInvestment", res.data);
+          commit("setFileCategories", res.data.data.files);
           commit("setInvestmentLoading", false);
           return res;
         })
@@ -166,6 +201,16 @@ const store = createStore({
     },
     setInvestment: (state, investment) => {
       state.investment.data = investment.data;
+    },
+    setFileCategories: (state, files) => {
+      state.investment.file_categories_all = [];
+
+      files.forEach((file) => {
+        const name = file.file_category.name;
+        if(!state.investment.file_categories_all.includes(name)) {
+          state.investment.file_categories_all.push(name);
+        }
+      });
     },
   },
   modules: {},

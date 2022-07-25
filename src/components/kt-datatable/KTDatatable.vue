@@ -234,10 +234,10 @@ export default defineComponent({
       } else {
         if (order.value === "asc") {
           order.value = "desc";
-          arraySort(data.value, columnName, { reverse: false });
+          arraySort(data.value, columnName, { reverse: true });
         } else {
           order.value = "asc";
-          arraySort(data.value, columnName, { reverse: true });
+          arraySort(data.value, columnName, { reverse: false });
         }
       }
       currentSort.value = columnName + order.value;

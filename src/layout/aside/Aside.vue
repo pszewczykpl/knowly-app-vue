@@ -15,7 +15,7 @@
         <img alt="Logo" :src="darkLogo" class="h-25px logo" />
       </a> -->
       <a href="#">
-        <img alt="Logo" src="media/logos/logo-1.svg" class="h-25px logo" />
+        <img alt="Logo" :src="url + '/media/logos/logo-1.svg'" class="h-25px logo" />
       </a>
 
       <div
@@ -27,7 +27,7 @@
         data-kt-toggle-name="aside-minimize"
       >
         <span class="svg-icon svg-icon-1 rotate-180">
-          <inline-svg src="media/icons/duotune/arrows/arr080.svg" />
+          <inline-svg :src="url + '/media/icons/duotune/arrows/arr080.svg'" />
         </span>
       </div>
     </div>
@@ -38,14 +38,9 @@
   </div>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import KTMenu from "@/layout/aside/Menu.vue";
 
-export default {
-  name: "KTAside",
-  components: {
-    KTMenu,
-  },
-};
+const url = import.meta.env.VITE_BASE_URL;
 
 </script>

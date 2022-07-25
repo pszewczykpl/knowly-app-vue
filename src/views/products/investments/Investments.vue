@@ -1,9 +1,7 @@
 <template>
   <div class="card">
     <div class="card-header border-0 pt-6">
-      <!--begin::Card title-->
       <div class="card-title">
-        <!--begin::Search-->
         <div class="d-flex align-items-center position-relative my-1">
           <span class="svg-icon svg-icon-1 position-absolute ms-6">
             <inline-svg src="media/icons/duotune/general/gen021.svg" />
@@ -25,7 +23,6 @@
           class="d-flex justify-content-end"
           data-kt-customer-table-toolbar="base"
         >
-          <!--begin::Export-->
           <button
             type="button"
             class="btn btn-light-primary me-3"
@@ -37,8 +34,6 @@
             </span>
             Export
           </button>
-          <!--end::Export-->
-          <!--begin::Add customer-->
           <button
             type="button"
             class="btn btn-primary"
@@ -50,10 +45,7 @@
             </span>
             Add Customer
           </button>
-          <!--end::Add customer-->
         </div>
-        <!--end::Toolbar-->
-        <!--begin::Group actions-->
         <div
           v-else
           class="d-flex justify-content-end align-items-center"
@@ -71,8 +63,6 @@
             Delete Selected
           </button>
         </div>
-        <!--end::Group actions-->
-        <!--begin::Group actions-->
         <div
           class="d-flex justify-content-end align-items-center d-none"
           data-kt-customer-table-toolbar="selected"
@@ -92,23 +82,26 @@
             Delete Selected
           </button>
         </div>
-        <!--end::Group actions-->
       </div>
-      <!--end::Card toolbar-->
     </div>
     <div class="card-body pt-0">
     <div class="mb-1">
             <div class="collapse" id="kt_advanced_search_form">
                 <div class="row align-items-center">
-                    <div class="col-12"><div class="separator separator-dashed mt-6 mb-6"></div></div>
+                  <div class="col-12">
+                    <div class="separator separator-dashed mt-6 mb-6">
 
-                    <div class="col-4">
+                    </div>
+                  </div>
+                  <div class="col-4">
 
-                      </div>
-<div class="col-3">
+                  </div>
+                  <div class="col-3">
 
-                      </div>
-                    <div class="mb-1"></div>
+                  </div>
+                  <div class="mb-1">
+
+                  </div>
                 </div>
             </div>
         </div>
@@ -152,8 +145,8 @@
           <template v-slot:cell-code="{ row: investment }">
             {{ investment.code }}
           </template>
-          <template v-slot:cell-group="{ row: investment }">
-            {{ investment.group }}
+          <template v-slot:cell-group_code="{ row: investment }">
+            {{ investment.group_code }}
           </template>
           <template v-slot:cell-actions="{ row: investment }">
             <a
@@ -162,34 +155,26 @@
               data-kt-menu-trigger="click"
               data-kt-menu-placement="bottom-end"
               data-kt-menu-flip="top-end"
-              >Actions
+              >Akcje
               <span class="svg-icon svg-icon-5 m-0">
                 <inline-svg src="media/icons/duotune/arrows/arr072.svg" />
               </span>
             </a>
-            <!--begin::Menu-->
             <div
               class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
               data-kt-menu="true"
             >
-              <!--begin::Menu item-->
               <div class="menu-item px-3">
                 <router-link
                   :to="{ name: 'InvestmentView', params: {id: investment.id } }"
                   class="menu-link px-3"
-                  >View</router-link
+                  >Wyświetl</router-link
                 >
               </div>
-              <!--end::Menu item-->
-              <!--begin::Menu item-->
               <div class="menu-item px-3">
-                <a @click="deleteCustomer(investment.id)" class="menu-link px-3"
-                  >Delete</a
-                >
+                <a @click="deleteCustomer(investment.id)" class="menu-link px-3">Usuń</a>
               </div>
-              <!--end::Menu item-->
             </div>
-            <!--end::Menu-->
           </template>
         </Datatable>
       </div>
@@ -222,7 +207,7 @@ const tableHeader = ref([
   { name: "Nazwa produktu", key: "name", sortable: true, },
   { name: "Kod TOiL", key: "code_toil", sortable: true, },
   { name: "Kod produktu", key: "code", sortable: true, },
-  { name: "Grupa produktowa", key: "group", sortable: true, },
+  { name: "Grupa produktowa", key: "group_code", sortable: true, },
   { name: "Akcje", key: "actions", sortable: false, },
 ]);
 
